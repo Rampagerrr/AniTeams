@@ -1,6 +1,6 @@
 // app/api/myanimelist/route.js
 import { NextResponse } from "next/server";
-import { fetchAnimeData } from "@/lib/fetchAnimeData"; // adjust import as needed
+import { fetchAnimeData } from "app/actions/aniListFetch.js"; // adjust import as needed
 
 export async function GET(req) {
   const animeId = 1; // You can get this from query params or request body
