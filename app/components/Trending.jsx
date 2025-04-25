@@ -10,7 +10,7 @@ const Trending = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://hianime-mapper-theta.vercel.app/anime/info/:anilistId");
+        const response = await fetch("`${process.env.NEXT_PUBLIC_CONSUMET_BASE_URL}/meta/anilist/trending`");
         const data = await response.json();
         const transformedData = data.results.map((anime) => ({
           id: anime.id,
