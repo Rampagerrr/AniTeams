@@ -1,37 +1,45 @@
-// app/myanimelist/page.jsx
-import { cookies } from "next/headers";
-import AnimeListGrid from "./AnimeListGrid"; // We’ll make this next
+"use client";
 
-export default async function MyAnimeListPage() {
-  const cookieStore = cookies();
-  const token = cookieStore.get("anilist_token")?.value;
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import AnimeCastAndCrew from "./AnimeCastAndCrew.jsx";
+
+export default function MyAnimeListPage() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const token = Cookies.get("anilistAuthToken");
+
+  useEffect(() => {
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
+    fetch("/api/myanimelist", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching anime list:", err);
+        setLoading(false);
+      });
+  }, [token]);
+
+  if (loading) return <p className="text-center text-white">Loading...</p>;
 
   if (!token) {
     return (
-      <div className="text-center mt-10 text-red-600">
+      <p className="text-center text-red-500">
         🔒 You must be logged in with AniList to view your anime list.
-      </div>
+      </p>
     );
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_DEPLOYMENT_URL}/api/myanimelist`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ access_token: token }),
-    cache: "no-store",
-  });
-
-  const json = await res.json();
-
-  if (!res.ok) {
-    return (
-      <div className="text-center mt-10 text-red-600">
-        ❌ Failed to load anime list: {json?.error || "Unknown error"}
-      </div>
-    );
-  }
-
-  const animeLists = json?.Viewer?.animeList?.lists || [];
-
-  return <AnimeListGrid lists={animeLists} />;
+  return <AnimeCastAndCrew data={data} />;
 }
