@@ -101,51 +101,55 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {loading ? (
-        <div className="animate-pulse">
+          <div className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black text-white">
+              {loading ? (
+          <div className="animate-pulse">
           <div className="h-40 bg-gray-700"></div>
           <div className="relative flex justify-center -mt-10">
-            <div className="w-20 h-20 bg-gray-600 rounded-full"></div>
-          </div>
-        </div>
+          <div className="w-20 h-20 bg-gray-600 rounded-full"></div>
+      </div>
+    </div>
       ) : (
         <>
-          <div className="relative">
-            <img
-              src={userData?.bannerImage}
-              alt="Banner"
-              className="w-full h-40 object-cover sm:h-48 md:h-60"
-            />
-            <div className="absolute bottom-0 w-full h-16 bg-gradient-to-t from-black to-transparent"></div>
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -mb-10">
-              <img
-                src={userData?.avatar?.large}
-                alt="Profile"
-                className="w-24 h-24 rounded-full border-4 border-black sm:w-28 sm:h-28"
-              />
-            </div>
-          </div>
-          <div className="text-center mt-12">
-            <h1 className="text-xl font-bold">{userData?.name || "Unknown User"}</h1>
-          </div>
+        <div className="relative">
+        <img
+          src={userData?.bannerImage}
+          alt="Banner"
+          className="w-full h-44 sm:h-60 md:h-72 object-cover"
+        />
+        <div className="absolute bottom-0 w-full h-20 bg-gradient-to-t from-black to-transparent" />
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2">
+          <img
+            src={userData?.avatar?.large}
+            alt="Profile"
+            className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-4 border-black shadow-md"
+          />
+        </div>
+      </div>
+
+      <div className="text-center mt-16">
+        <h1 className="text-2xl font-bold tracking-wide">{userData?.name || "Unknown User"}</h1>
+      </div>
+
         </>
       )}
 
-      <div className="mt-6 px-4">
-        <div className="flex overflow-x-auto space-x-4 pb-2 scrollbar-hide">
-          {["Currently Watching", "Planning", "Completed", "Dropped", "Paused", "Repeating"].map((category) => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`pb-2 px-4 ${
+ <div className="mt-8 px-4">
+    <div className="flex overflow-x-auto space-x-3 pb-4 scrollbar-hide">
+      {["Currently Watching", "Planning", "Completed", "Dropped", "Paused", "Repeating"].map(
+        (category) => (
+          <button
+            key={category}
+            onClick={() => setSelectedCategory(category)}
+            className={`px-4 py-1 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200
+              ${
                 selectedCategory === category
-                  ? "border-b-2 border-blue-500"
-                  : "hover:border-b-2 hover:border-gray-500"
-              } transition-all whitespace-nowrap`}
-            >
-              {category}
-            </button>
+                  ? "bg-blue-600 text-white shadow"
+                  : "bg-zinc-800 text-gray-300 hover:bg-zinc-700"
+              }`}
+          >
+            {category}
+          </button>
           ))}
         </div>
 
