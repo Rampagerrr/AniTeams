@@ -2,44 +2,38 @@
 
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import AnimeCastAndCrew from "./AnimeCastAndCrew.jsx";
+import AnimeListGrid from "./AnimeListGrid";
 
 export default function MyAnimeListPage() {
-  const [data, setData] = useState(null);
+  const [animeLists, setAnimeLists] = useState([]);
   const [loading, setLoading] = useState(true);
-  const token = Cookies.get("anilistAuthToken");
 
   useEffect(() => {
+    const token = Cookies.get("anilistAuthToken");
+
     if (!token) {
       setLoading(false);
       return;
     }
 
     fetch("/api/myanimelist", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ access_token: token }),
     })
       .then((res) => res.json())
       .then((data) => {
-        setData(data);
+        setAnimeLists(data?.animeList?.lists || []);
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Error fetching anime list:", err);
+        console.error("Failed to fetch anime list:", err);
         setLoading(false);
       });
-  }, [token]);
+  }, []);
 
-  if (loading) return <p className="text-center text-white">Loading...</p>;
+  if (loading) return <p className="text-center">Loading...</p>;
+  if (!animeLists.length) return <p className="text-center text-red-500">No anime found in your list</p>;
 
-  if (!token) {
-    return (
-      <p className="text-center text-red-500">
-        🔒 You must be logged in with AniList to view your anime list.
-      </p>
-    );
-  }
-
-  return <AnimeCastAndCrew data={data} />;
+  return <AnimeListGrid lists={animeLists} />;
 }
