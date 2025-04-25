@@ -35,23 +35,18 @@ function AnimeCard({ data }) {
             </div>
           </div>
         </div>
-
-        <div className="relative group w-full">
-          <div className="mt-2 rounded-md flex items-center space-x-1 hover:bg-neutral-300 dark:hover:bg-neutral-800">
-            <Status status={data.status || "Unknown"} />
-            <p
-              className="transition-all dark:text-secondary text-primary font-bold line-clamp-1 text-sm rounded p-1"
-            >
-              {data?.title?.english || data?.title?.romaji || "Unknown"}
-            </p>
-          </div>
-
-          {/* Tooltip saat hover */}
-          <div className="absolute z-10 bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-zinc-800 text-white text-xs rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-            {data?.title?.english || data?.title?.romaji || "Unknown"}
-          </div>
-        </div>
-
+              <div className="mt-2 relative group w-full">
+                <div className="rounded-md flex items-center space-x-1">
+                  <Status status={data.status || "Unknown"} />
+                  
+                  {/* Judul dengan efek gelembung saat hover */}
+                  <div className="relative max-w-full overflow-hidden">
+                    <p className="transition-all transform text-sm font-bold text-primary dark:text-secondary p-1 rounded line-clamp-1 group-hover:scale-105 group-hover:z-10 group-hover:absolute group-hover:whitespace-normal group-hover:line-clamp-none group-hover:bg-neutral-800 group-hover:shadow-lg">
+                      {data?.title?.english || data?.title?.romaji || "Unknown"}
+                    </p>
+                  </div>
+                </div>
+              </div>
         <div className="text-xs sm:text-sm flex space-x-2 mt-2 select-none">
           {data.releaseDate && (
             <p
