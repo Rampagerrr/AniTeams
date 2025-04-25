@@ -22,8 +22,9 @@ export default function AnimeListGrid({ lists }) {
                   className="rounded-md mx-auto"
                 />
                 <h3 className="text-sm mt-2 text-center font-medium">
-                  {media.title.romaji || media.title.english}
+                    {media.title.romaji || media.title.english}
                 </h3>
+                <p className="text-xs text-center text-gray-500">{media.format} • {media.status}</p>
               </div>
             ))}
           </div>
