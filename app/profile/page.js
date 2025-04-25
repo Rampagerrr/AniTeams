@@ -101,6 +101,7 @@ export default function ProfilePage() {
   }
 
   return (
+          <div className="bg-zinc-900 rounded-xl p-3 shadow hover:shadow-lg transition-all">
           <div className="min-h-screen bg-gradient-to-b from-black via-zinc-900 to-black text-white">
               {loading ? (
           <div className="animate-pulse">
@@ -134,7 +135,7 @@ export default function ProfilePage() {
         </>
       )}
 
- <div className="mt-8 px-4">
+ <div className="mt-8 px-4 max-w-7xl mx-auto">
     <div className="flex overflow-x-auto space-x-3 pb-4 scrollbar-hide">
       {["Currently Watching", "Planning", "Completed", "Dropped", "Paused", "Repeating"].map(
         (category) => (
@@ -153,7 +154,7 @@ export default function ProfilePage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-6 mt-6">
           {loading
             ? Array.from({ length: 8 }).map((_, i) => <AnimeCardSkeleton key={i} />)
             : animeLists
