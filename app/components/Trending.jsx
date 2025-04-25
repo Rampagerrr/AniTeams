@@ -10,7 +10,7 @@ const Trending = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://anime-kun32.vercel.app/meta/anilist/trending");
+        const response = await fetch("https://ani-teams-app.vercel.app/components/trending");
         const data = await response.json();
         const transformedData = data.results.map((anime) => ({
           id: anime.id,
