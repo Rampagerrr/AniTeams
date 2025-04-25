@@ -147,7 +147,7 @@ export default function ProfilePage() {
                 selectedCategory === category
                   ? "bg-blue-600 text-white shadow"
                   : "bg-zinc-800 text-gray-300 hover:bg-zinc-700"
-              }`}
+              } transition-all whitespace-nowrap`}
           >
             {category}
           </button>
