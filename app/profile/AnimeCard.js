@@ -36,14 +36,13 @@ function AnimeCard({ data }) {
           </div>
         </div>
               <div className="mt-2 relative group w-full">
-                <div className="rounded-md flex items-center space-x-1 relative">
+                <div className="flex items-center justify-center w-full rounded-md hover:bg-neutral-300 dark:hover:bg-neutral-800">
                   <Status status={data.status || "Unknown"} />
               
-                  {/* Bungkus teks judul di dalam container agar tidak overflow */}
                   <div className="relative overflow-hidden max-w-full">
                     <p
-                      className="transition-all duration-300 ease-in-out text-sm font-bold text-primary dark:text-secondary p-1 rounded line-clamp-1
-                                 group-hover:line-clamp-none group-hover:bg-neutral-800 group-hover:shadow-md group-hover:whitespace-normal"
+                      className="transition-all duration-300 ease-in-out text-sm font-bold text-primary dark:text-secondary p-1 rounded text-center
+                                 line-clamp-1 group-hover:line-clamp-none group-hover:bg-neutral-800 group-hover:shadow-md group-hover:whitespace-normal"
                       style={{ zIndex: 20, position: 'relative' }}
                     >
                       {data?.title?.english || data?.title?.romaji || "Unknown"}
