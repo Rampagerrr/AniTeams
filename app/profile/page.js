@@ -41,8 +41,8 @@ const VIEWER_QUERY = `
 `;
 
 export default function ProfilePage() {
-  const [userData, setUserData] = useState(null);
-  const [animeLists, setAnimeLists] = useState(null);
+  const [userData, setUserData] = useState([]);
+  const [animeLists, setAnimeLists] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("Currently Watching");
 
@@ -142,12 +142,12 @@ export default function ProfilePage() {
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={`px-4 py-1 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200
-              ${
-                selectedCategory === category
+                className={`px-4 py-1 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-200
+                ${selectedCategory === category
                   ? "bg-blue-600 text-white shadow"
                   : "bg-zinc-800 text-gray-300 hover:bg-zinc-700"
-              } transition-all whitespace-nowrap`}
+                }`}
+
           >
             {category}
           </button>
@@ -188,4 +188,3 @@ export default function ProfilePage() {
     </div>
   );
 }
-export default ProfilePage;
